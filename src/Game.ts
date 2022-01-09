@@ -10,26 +10,34 @@ export default class Game {
     context: CanvasRenderingContext2D;
     gameInterval: NodeJS.Timer;
     difficultyLoop: NodeJS.Timer;
+    score: number;
+    scoreInterval: NodeJS.Timer;
     screenWidth: number;
     screenHeight: number;
 
     constructor ( screenWidth: number, screenHeight: number,
         canvas: HTMLCanvasElement,
     ){
-
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
         this.canvas = canvas;
         this.player;
         this.enemies;
         this.context;
+        this.score;
+        this.scoreLoop;
         this.configPlayers();
         this.configCanvas()
     }
 
     configPlayers() {
+        this.score = 0;
         this.player = new Player(this.screenWidth/2, this.screenHeight/2, 30, "#FF2B20");
         this.enemies = [new Enemy(10, 10, 10, "#02FF09", 3.5, 3.5)]
+    }
+
+    scoreLoop() {
+        this.score++
     }
 
     configCanvas() {
@@ -51,9 +59,12 @@ export default class Game {
         this.enemies.forEach((enemy) => {
             const distance = Math.sqrt(Math.pow(this.player.x - enemy.x, 2) + Math.pow(this.player.y - enemy.y, 2));
             if (distance <= (this.player.radius + enemy.radius)) {
-                alert('Oh, fuck off!')
+                alert(`Your score is ${this.score}`)
                 this.clearScreen();
+                this.score = 0;
                 clearInterval(this.gameInterval)
+                clearInterval(this.scoreInterval)
+                clearInterval(this.difficultyLoop)
                 this.enemies = [];
                 window.location.reload();
             }    
@@ -84,5 +95,9 @@ export default class Game {
         this.difficultyLoop = setInterval(() => {
             this.increaseDifficulty()
         }, 3000)
+
+        this.scoreInterval = setInterval(() => {
+            this.scoreLoop();
+        }, 1000)
     }
 }
