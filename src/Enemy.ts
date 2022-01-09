@@ -15,11 +15,11 @@ export default class Enemy extends Circle{
         this.y += this.speedY;
     }
 
-    checkOutOfScreen() {
-        if (this.x > window.innerWidth || this.x < 0) {
+    checkOutOfScreen(width: number, height: number) {
+        if (this.x > width || this.x < 0) {
             this.speedX *= -1;
         }
-        if (this.y > window.innerHeight || this.y < 0) {
+        if (this.y > height || this.y < 0) {
             this.speedY *= -1;
         }
     }
