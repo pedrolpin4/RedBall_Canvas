@@ -1,11 +1,11 @@
 import Circle from "./Circle";
 
-export default class Enemy extends Circle {
+export default class Enemy extends Circle{
     speedX: number;
     speedY: number;
 
     constructor(x: number, y: number, radius: number, color: string, speedX: number, speedY: number) {
-        super(x, y, radius, color);
+        super(x, y, radius, color)
         this.speedX = speedX;
         this.speedY = speedY;
     }

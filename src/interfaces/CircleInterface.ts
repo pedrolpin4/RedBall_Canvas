@@ -3,5 +3,5 @@ export default interface Circle {
     y: number,
     radius: number,
     color: string,
-    context: CanvasRenderingContext2D,
+    draw: Function,
 }
