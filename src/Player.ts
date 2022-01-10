@@ -11,4 +11,8 @@ export default class Player extends Circle {
     increaseSize() {
         this.radius += 2;
     }
+
+    decreaseSize() {
+        this.radius -= 5;
+    }
 }
